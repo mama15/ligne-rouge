@@ -53,7 +53,7 @@ include "db.php";
         ?>
           <tr>
             <td><?php echo $row["id"] ?></td>
-            <td><?php echo $row["picture"] ?></td>
+            <td><img src="data:image/png;base64,<?php echo base64_encode($row["picture"]) ?>" alt="photo profil"></td>
             <td><?php echo $row["first_name"] ?></td>
             <td><?php echo $row["last_name"] ?></td>
             <td><?php echo $row["email"] ?></td>
