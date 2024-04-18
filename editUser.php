@@ -59,6 +59,20 @@ if (isset($_POST["submit"])) {
       <form action="" method="post" style="width:50vw; min-width:300px;">
         <div class="row mb-3">
           <div class="col">
+
+          <div class="mb-3">
+            <label class="form-label">Photo de profil:</label>
+            <input type="file" class="form-control" name="profile_picture">
+            <br>
+            <?php
+            if (!empty($row['picture'])) {
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($row['picture']) . '" class="img-thumbnail" width="150" height="150" />';
+            } else {
+                echo 'Aucune photo de fournie.';
+            }
+            ?>
+        </div>
+
             <label class="form-label">Nom:</label>
             <input type="text" class="form-control" name="first_name" value="<?php echo $row['first_name'] ?>">
           </div>
