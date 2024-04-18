@@ -61,6 +61,7 @@ include "db.php";
             <td>
               <a href="editUser.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
               <a href="deleteUser.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
+              <a href="getUser.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-eye fs-5"></i></a>
             </td>
           </tr>
         <?php
