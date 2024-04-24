@@ -8,7 +8,7 @@ if (isset($_POST["submit"])) {
   $email = $_POST['email'];
   $gender = $_POST['gender'];
 
-  $sql = "UPDATE crud SET first_name='$first_name',last_name='$last_name',email='$email',gender='$gender' WHERE id = $id";
+  $sql = "UPDATE `crud` SET `first_name`='$first_name',`last_name`='$last_name',`email`='$email',`gender`='$gender' WHERE id = $id";
 
   $result = mysqli_query($conn, $sql);
 
@@ -43,13 +43,15 @@ if (isset($_POST["submit"])) {
 
 <body>
 <?php
-    $sql = "SELECT * FROM crud WHERE id = $id LIMIT 1";
+    $sql = "SELECT * FROM `crud` WHERE id = $id LIMIT 1";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     ?>
 
 
-
+<div class="text-center mt-5 mb-5">
+         <h3>Detail de l'utilisateur <?php echo $row['id']; ?></h3>
+      </div>
     <div class="container d-flex justify-content-center">
       <div style="display: flex; flex-direction: row; gap: 5px;">
       <div class="mb-3">
@@ -60,6 +62,9 @@ if (isset($_POST["submit"])) {
                 echo 'Aucune photo de fournie.';
             }
             ?>
+            <div class='mt-4'>
+               <a href="index.php" class="btn btn-info">Retour</a>
+            </div>
         </div>
       <div>
       <div>

@@ -57,10 +57,8 @@ if (isset($_POST["submit"])) {
 
     <div class="container d-flex justify-content-center">
       <form action="" method="post" style="width:50vw; min-width:300px;">
-        <div class="row mb-3">
-          <div class="col">
 
-          <div class="mb-3">
+      <div class="mb-3">
             <label class="form-label">Photo de profil:</label>
             <input type="file" class="form-control" name="profile_picture">
             <br>
@@ -72,7 +70,9 @@ if (isset($_POST["submit"])) {
             }
             ?>
         </div>
-
+      
+        <div class="row mb-3">
+          <div class="col">
             <label class="form-label">Nom:</label>
             <input type="text" class="form-control" name="first_name" value="<?php echo $row['first_name'] ?>">
           </div>
