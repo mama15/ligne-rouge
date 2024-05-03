@@ -41,13 +41,7 @@ CREATE TABLE `crud` (
 --
 
 INSERT INTO `crud` (`id`, `picture`, `first_name`, `last_name`, `email`, `gender`) VALUES
-(1, '', 'Issa', 'Diop', 'issa@gmail.com', 'male'),
-(2, '', 'gory', 'sow', 'gory@gmail.com', 'male'),
-(3, '', 'thioro', 'thiam', 'thioro@gmail.com', 'female'),
-(4, '', 'balla', 'soc', 'balla@gmail.com', 'male'),
-(5, '', 'mouhamed', 'fall', 'mouha@gmail.com', 'male'),
-(6, 0x6c6f676f2e706e67, 'tst', 'tst', 'tst@gmail.com', 'male'),
-(7, 0x697373612d30386435333431302e706e67, 'askh', 'asjh', 'ajh@gmail.com', 'female');
+(2, 0x697373612d30386435333431302e706e67, 'tst', 'tst', 'tst@gmail.com', 'male');
 
 --
 -- Indexes for dumped tables

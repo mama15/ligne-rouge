@@ -1,7 +1,11 @@
 <?php
 include "db.php";
-?>
 
+// Requête SQL pour récupérer les informations de l'utilisateur
+$sql = "SELECT * FROM `crud`";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,71 +13,41 @@ include "db.php";
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="./style/bootstrap-cerulean.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <title>Profil Utilisateur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <title>getAllUsers</title>
 </head>
 
 <body>
-  <div class="panel panel-info justify-content-center text-center fs-3 mb-5">
-    Liste des utilisateurs
-</div>
-
-  <div class="container">
-    <?php
-    if (isset($_GET["msg"])) {
-      $msg = $_GET["msg"];
-      echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-      ' . $msg . '
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>';
-    }
-    ?>
-    <a href="addUser.php" class="btn btn-dark mb-3">Nouveau Utilisateur</a>
-
-    <table class="table table-hover text-center">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Image</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Prenom</th>
-          <th scope="col">Email</th>
-          <th scope="col">Sexe</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        $sql = "SELECT * FROM `crud`";
-        $result = mysqli_query($conn, $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-          <tr>
-            <td><?php echo $row["id"] ?></td>
-            <td><img src="data:image/png;base64,<?php echo base64_encode($row["picture"]) ?>" alt="photo profil"></td>
-            <td><?php echo $row["first_name"] ?></td>
-            <td><?php echo $row["last_name"] ?></td>
-            <td><?php echo $row["email"] ?></td>
-            <td><?php echo $row["gender"] ?></td>
-            <td>
-              <a href="editUser.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
-              <a href="deleteUser.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-trash fs-5"></i></a>
-              <a href="getUser.php?id=<?php echo $row["id"] ?>" class="link-dark"><i class="fa-solid fa-eye fs-5"></i></a>
-            </td>
-          </tr>
-        <?php
-        }
-        ?>
-      </tbody>
-    </table>
+  <div class="container mt-5">
+    <h1>Profil Utilisateur</h1>
+    <div class="row">
+    <div class="col-md-4">
+    <img src="static/person.jpeg"/>
+            <div class="mt-5">
+              <a href="editUser.php?id=<?php echo $row["id"] ?>" class="btn btn-primary">Modifier</a>
+            </div>
+        </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-1">
+              <p><h6>FirstName: </h6><span><?php echo $row['first_name']; ?></span></p>
+            </div>
+            <div class="mb-1">
+              <p><h6>Lastname: </h6><span><?php echo $row['last_name']; ?></span></p>
+            </div>
+            <div class="mb-1">
+            <p><h6>Email: </h6><span><?php echo $row['email']; ?></span></p>
+            </div>
+            <div class="mb-1`">
+              <p><h6>Gender: </h6><span><?php echo $row['gender']; ?></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
 </body>
 
 </html>
