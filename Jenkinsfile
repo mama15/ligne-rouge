@@ -15,10 +15,10 @@ pipeline {
   }
   post {
     success {
-      slackSend channel: 'groupe4', message: 'Code execute'
+      slackSend channel: 'groupe4', message: 'succe'
     }
     failure {
-      slackSend channel: 'groupe4', message: 'Code execute with error'
+      slackSend channel: 'groupe4', message: 'echou'
     }
   }
 }
