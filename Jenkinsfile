@@ -4,6 +4,7 @@ pipeline {
         stage("test") {
             steps {
                 echo "hello world"
+                sh "docker ps"
             }
         }
         stage("build") {
