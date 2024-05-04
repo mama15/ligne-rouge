@@ -32,7 +32,7 @@ $row = mysqli_fetch_assoc($result);
         <div class="row">
           <div class="col-md-6">
             <div class="mb-1">
-              <p><h6>FirstName: </h6><span><?php echo $row['first_name']; ?></span></p>
+              <p><h6>First Name: </h6><span><?php echo $row['first_name']; ?></span></p>
             </div>
             <div class="mb-1">
               <p><h6>Lastname: </h6><span><?php echo $row['last_name']; ?></span></p>
