@@ -4,7 +4,6 @@ pipeline {
         stage("test") {
             steps {
                 echo "hello world"
-                echo $USER
             }
         }
         stage("build") {
