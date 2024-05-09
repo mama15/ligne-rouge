@@ -8,6 +8,16 @@ pipeline {
   }
   agent any
   stages {
+    stage('Active minikube') {
+      steps {
+        sh 'minikube start'
+      }
+    }
+    stage('create namespace') {
+      steps {
+        sh 'kubectl create namespace K8s'
+      }
+    }
     stage('Checkout Source') {
       steps {
         git 'https://github.com/issa2580/ligne-rouge.git'
@@ -37,14 +47,13 @@ pipeline {
         }
       }
     }
-    stage('Deploying to Kubernetes') {
+    stage('Deploy to Kubernetes') {
       steps {
         script {
-          kubectl.apply(file: 'deploy.yaml')
-          kubectl.rolloutStatus(deployment: 'ligne-rouge-web')
-          kubectl.rolloutStatus(deployment: 'ligne-rouge-db')
-          kubectl.expose(deployment: 'ligne-rouge-web', port: 8080)
-          kubectl.expose(deployment: 'ligne-rouge-db', port: 5432)
+          sh 'kubectl apply -f deployment-web.yaml -n K8s'
+          sh 'kubectl apply -f deployment-db.yaml -n K8s'
+          sh 'kubectl apply -f service-web.yaml -n K8s'
+          sh 'kubectl apply -f service-db.yaml -n K8s'
         }
       }
     }
