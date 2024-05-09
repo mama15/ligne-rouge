@@ -37,18 +37,5 @@ pipeline {
         }
       }
     }
-    stage('Active minikube'){
-            steps{
-                sh 'minikube start'
-            }
-        }
-        stage('create namespace'){
-            steps{
-                
-                  sh 'kubectl create namespace demoKubernetes'
-            }
-
-            
-        }
   }
 }
