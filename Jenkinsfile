@@ -40,9 +40,10 @@ pipeline {
     stage('Deploying to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+          kubernetesDeploy(configs: ["deployment.yaml", "service.yaml"], kubeconfigId: "G4Kub")
         }
       }
     }
+
   }
 }
