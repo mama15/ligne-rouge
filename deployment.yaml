@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: web
-          image: martinez/ligne-rouge-web:latest
+          image: martinez42/ligne-rouge-web:latest
           ports:
             - containerPort: 80
         - name: db
-          image: martinez/ligne-rouge-db:latest
+          image: martinez42/ligne-rouge-db:latest
           ports:
             - containerPort: 3306
