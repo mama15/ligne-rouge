@@ -16,7 +16,7 @@ pipeline {
     stage('Build Web Docker image') {
       steps {
         script {
-          webDockerImage = docker.build webDockerImageName, "-f Web.Dockerfile ."
+          webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
         }
       }
     }
