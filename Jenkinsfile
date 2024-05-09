@@ -37,12 +37,15 @@ pipeline {
         }
       }
     }
-    stage('Deploying to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: ["deployment.yaml", "service.yaml"], kubeconfigId: "G4Kub")
-        }
+    stage('Active minikube'){
+      {
+        sh 'minikube start'
       }
+    }
+    stage('create namespace'){
+      steps{
+        bat 'kubectl create namespace group-4'
+      }     
     }
 
   }
