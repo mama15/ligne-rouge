@@ -1,7 +1,7 @@
 pipeline {
   environment {
     webDockerImageName = "martinez42/ligne-rouge-web"
-    dbDockerImageName = "martinez42/ligne-rouge-db"
+    dbDockerImageName = "issa2580/ligne-rouge-db"
     webDockerImage = ""
     dbDockerImage = ""
     registryCredential = 'docker-credentiel'
@@ -37,12 +37,18 @@ pipeline {
         }
       }
     }
-    stage('Deploying to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+    stage('Active minikube'){
+            steps{
+                sh 'minikube start'
+            }
         }
-      }
-    }
+        stage('create namespace'){
+            steps{
+                
+                  sh 'kubectl create namespace demoKubernetes'
+            }
+
+            
+        }
   }
 }
