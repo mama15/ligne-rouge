@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-web
+  labels:
+    app: ligne-rouge-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ligne-rouge-web
+  template:
+    metadata:
+      labels:
+        app: ligne-rouge-web
+    spec:
+      containers:
+        - name: web
+          image: martinez42/ligne-rouge-web:latest
+          ports:
+            - containerPort: 80

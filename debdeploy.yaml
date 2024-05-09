@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-db
+  labels:
+    app: ligne-rouge-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ligne-rouge-db
+  template:
+    metadata:
+      labels:
+        app: ligne-rouge-db
+    spec:
+      containers:
+        - name: db
+          image: martinez42/ligne-rouge-db:latest
+          ports:
+            - containerPort: 3306
