@@ -1,24 +1,48 @@
 pipeline {
+  environment {
+    webDockerImageName = "issa2580/ligne-rouge-web"
+    dbDockerImageName = "issa2580/ligne-rouge-db"
+    webDockerImage = ""
+    dbDockerImage = ""
+    registryCredential = 'docker-credentiel'
+  }
   agent any
   stages {
-   
-    stage ('test') {
+    stage('Checkout Source') {
       steps {
-        sh 'docker ps -a'
+        git 'https://github.com/issa2580/ligne-rouge.git'
       }
     }
-    stage ('Run Docker Compose') {
+    stage('Build Web Docker image') {
       steps {
-        sh 'docker-compose up  -d --build'
+        script {
+          webDockerImage = docker.build webDockerImageName, "-f Web.Dockerfile ."
+        }
       }
     }
-  }
-  post {
-    success {
-      slackSend channel: 'groupe4', message: 'build success'
+    stage('Build DB Docker image') {
+      steps {
+        script {
+          dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
+        }
+      }
     }
-    failure {
-      slackSend channel: 'groupe4', message: 'build error'
+    stage('Pushing Images to Docker Registry') {
+      steps {
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+            webDockerImage.push('latest')
+            dbDockerImage.push('latest')
+          }
+        }
+      }
+    }
+    stage('Deploying to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+        }
+      }
     }
   }
 }
