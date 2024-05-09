@@ -1,7 +1,7 @@
 pipeline {
   environment {
     webDockerImageName = "martinez42/ligne-rouge-web"
-    dbDockerImageName = "issa2580/ligne-rouge-db"
+    dbDockerImageName = "martinez42/ligne-rouge-db"
     webDockerImage = ""
     dbDockerImage = ""
     registryCredential = 'docker-credentiel'
@@ -34,6 +34,13 @@ pipeline {
             webDockerImage.push('latest')
             dbDockerImage.push('latest')
           }
+        }
+      }
+    }
+    stage('Deploying to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
         }
       }
     }
