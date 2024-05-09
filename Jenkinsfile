@@ -1,7 +1,7 @@
 pipeline {
   environment {
-    webDockerImageName = "issa2580/ligne-rouge-web"
-    dbDockerImageName = "issa2580/ligne-rouge-db"
+    webDockerImageName = "martinez42/ligne-rouge-web"
+    dbDockerImageName = "martinez42/ligne-rouge-db"
     webDockerImage = ""
     dbDockerImage = ""
     registryCredential = 'docker-credentiel'
@@ -16,7 +16,7 @@ pipeline {
     stage('Build Web Docker image') {
       steps {
         script {
-          webDockerImage = docker.build webDockerImageName, "-f Web.Dockerfile ."
+          webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
         }
       }
     }
