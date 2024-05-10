@@ -9,40 +9,33 @@ pipeline {
     agent any
     stages {
         stage('Checkout Source') {
-        steps {
-            git 'https://github.com/issa2580/ligne-rouge.git'
-        }
+            steps {
+                git 'https://github.com/issa2580/ligne-rouge.git'
+            }
         }
         stage('Build Web Docker image') {
-        steps {
-            script {
-            webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
+            steps {
+                script {
+                    webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
+                }
             }
-        }
         }
         stage('Build DB Docker image') {
-        steps {
-            script {
-            dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
+            steps {
+                script {
+                    dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
+                }
             }
-        }
         }
         stage('Pushing Images to Docker Registry') {
-        steps {
-            script {
-            docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                webDockerImage.push('latest')
-                dbDockerImage.push('latest')
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                        webDockerImage.push('latest')
+                        dbDockerImage.push('latest')
+                    }
+                }
             }
-            }
-        }
-        }
-        stage('Deploying to Kubernetes') {
-        steps {
-            script {
-            kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
-            }
-        }
         }
         stage('Deploy') {
             steps {
