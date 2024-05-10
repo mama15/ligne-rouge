@@ -44,5 +44,16 @@ pipeline {
         }
       }
     }
+    stage('Deploy') {
+            steps {
+                withCredentials([file(credentialsId: 'kube-config', variable: 'KUBECONFIG')]) {
+                    script {
+                        sh 'kubectl apply -f db-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
+                        sh 'kubectl apply -f app-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
+                    }
+                }
+            }
+        }
+    }
   }
 }
