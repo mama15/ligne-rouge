@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-db
+  name: service-web
 spec:
   selector:
-    app: ligne-rouge-db
+    app: ligne-rouge-web
   ports:
     - protocol: TCP
-      port: 3306
-      targetPort: 3306
-  type: ClusterIP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
