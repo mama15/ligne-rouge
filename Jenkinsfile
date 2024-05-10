@@ -10,7 +10,15 @@ pipeline {
   stages {
     stage('Active minikube') {
       steps {
-        sh 'minikube start'
+        script {
+          try {
+            sh 'minikube start'
+          } catch (Exception e) {
+            echo "Failed to start Minikube: ${e.message}"
+            currentBuild.result = 'FAILURE'
+            error("Failed to start Minikube")
+          }
+        }
       }
     }
     stage('create namespace') {
