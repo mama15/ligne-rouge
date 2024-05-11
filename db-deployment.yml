@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: db
-          image: martinez42/ligne-rouge-db:latest
+          image: ngeuya/ame-mysql
           ports:
             - containerPort: 3306
           volumeMounts:
@@ -79,4 +79,4 @@ spec:
       targetPort: 3306
   selector:
     app: db
-  type: NodePort
+  clusterIP: None #Le service n'a pas d'adresse IP publique.
