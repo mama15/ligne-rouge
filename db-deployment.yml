@@ -79,4 +79,4 @@ spec:
       targetPort: 3306
   selector:
     app: db
-  clusterIP: None #Le service n'a pas d'adresse IP publique.
+  type: ClusterIP
