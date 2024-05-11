@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: db
-          image: ngeuya/ame-mysql
+          image: martinez42/ligne-rouge-db:latest
           ports:
             - containerPort: 3306
           volumeMounts:
