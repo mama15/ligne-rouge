@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Deploying to kubernetes') {
             steps {
-                withCredentials([file(credentialsId: 'tst-secret', variable: 'KUBECONFIG')]) {
+                withCredentials([file(credentialsId: 'tsts-secret', variable: 'KUBECONFIG')]) {
                     script {
                         sh 'kubectl apply -f db-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
                         sh 'kubectl apply -f app-deployment.yml --kubeconfig=${KUBECONFIG} --validate=false'
