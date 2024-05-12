@@ -1,8 +1,7 @@
-# mysql-pv-pvc.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-pv
+  name: mysql-pv-new
 spec:
   capacity:
     storage: 1Gi
@@ -14,7 +13,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pvc
+  name: mysql-pvc-new
 spec:
   accessModes:
     - ReadWriteOnce
@@ -66,8 +65,7 @@ spec:
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:
-            claimName: mysql-pvc
-
+            claimName: mysql-pvc-new
 ---
 apiVersion: v1
 kind: Service
