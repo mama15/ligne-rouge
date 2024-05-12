@@ -47,13 +47,5 @@ pipeline {
                 }
             }
         }
-        post {
-            success {
-                slackSend channel: 'groupe4', message: 'Success deployment'
-            }
-            failure {
-                slackSend channel: 'groupe4', message: 'Failed deployment'
-            }
-        }
     }
 }
