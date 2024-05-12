@@ -48,4 +48,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            slackSend channel: 'groupe4', message: 'Success to deploy'
+        }
+        failure {
+            slackSend channel: 'groupe4', message: 'Failed to deploy'
+        }
+    }
 }
