@@ -1,5 +1,5 @@
 <?php
-$servername = "mysql-deployment";
+$servername = "db-service";
 $username = "root";
 $password = "root";
 $dbname = "redline";
