@@ -1,31 +1,7 @@
-# mysql-pv-pvc.yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/data/mysql
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: db-base
 spec:
   replicas: 1
   selector:
@@ -37,46 +13,31 @@ spec:
         app: db
     spec:
       containers:
-        - name: db
+        - name: mysql
           image: martinez42/ligne-rouge-db:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: redline
+            - name: DATABASE_USER
+              value: root
+            - name: DATABASE_HOST
+              value: db
           ports:
             - containerPort: 3306
-          volumeMounts:
-            - name: mysql-storage
-              mountPath: /var/lib/mysql
-          # Definir les Probes  pour vérifier l'état des conteneurs dans un pod.
-          livenessProbe: #Vérifie si le conteneur fonctionne correctement. Si la vérification échoue, le conteneur est redémarré
-            exec:
-              command: #vérifie si le serveur MySQL répond.
-                - mysqladmin
-                - ping
-                - "-h"
-                - "127.0.0.1"
-            initialDelaySeconds: 30 # Temps d'attente avant le premier test
-            periodSeconds: 10 # Fréquence de vérification
-          readinessProbe: #Vérifie si le conteneur est prêt à recevoir du trafic. Si la vérification échoue, le conteneur est retiré du service (Service endpoint).
-            exec: #assure que le serveur MySQL est prêt.
-              command:
-                - mysqladmin
-                - ping
-                - "-h"
-                - "127.0.0.1"
-            initialDelaySeconds: 15 # Temps d'attente avant le premier test
-            periodSeconds: 5 # Fréquence de vérification
-      volumes:
-        - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: db-service
+  name: db
 spec:
-  ports:
-    - port: 3306
-      targetPort: 3306
   selector:
     app: db
-  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 31100
+  type: NodePort # Type de service
