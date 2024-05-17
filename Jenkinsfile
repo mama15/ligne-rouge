@@ -5,8 +5,8 @@ pipeline {
         webDockerImage = ""
         dbDockerImage = ""
         registryCredential = 'docker-credentiel'
-        kube_config = "/home/rootkit/.kube/config"
-        terra_dir = "/home/rootkit/ligne-rouge/terraform"
+        KUBECONFIG = "/home/rootkit/.kube/config"
+        TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
     }
     agent any
     stages {
@@ -42,24 +42,24 @@ pipeline {
         stage("Terraform Initialiization") {
             steps {
                 script {
-                    sh "sudo chmod +w ${terra_dir}"
-                    sh "cd ${terra_dir} && terraform init"
+                    // sh "sudo chmod +w ${TERRA_DIR}"
+                    sh "cd ${TERRA_DIR} && terraform init"
                 }
             }
         }
         stage("Terraform Plan") {
             steps {
                 script {
-                    sh "sudo chmod +w ${terra_dir}"
-                    sh "cd ${terra_dir} && terraform plan"
+                    // sh "sudo chmod +w ${terra_dir}"
+                    sh "cd ${TERRA_DIR} && terraform plan"
                 }
             }
         }
         stage("Terraform Apply") {
             steps {
                 script {
-                    sh "sudo chmod +w ${terra_dir}"
-                    sh "cd ${terra_dir} && terraform apply --auto-approve"
+                    // sh "sudo chmod +w ${terra_dir}"
+                    sh "cd ${TERRA_DIR} && terraform apply --auto-approve"
                 }
             }
         }
