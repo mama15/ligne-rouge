@@ -42,21 +42,21 @@ pipeline {
         stage("Terraform Initialiization") {
             steps {
                 script {
-                    sh "cd %terra_dir% && terraform init"
+                    sh "cd ${terra_dir} && terraform init"
                 }
             }
         }
         stage("Terraform Plan") {
             steps {
                 script {
-                    sh "cd %terra_dir% && terraform plan"
+                    sh "cd ${terra_dir} && terraform plan"
                 }
             }
         }
         stage("Terraform Apply") {
             steps {
                 script {
-                    sh "cd %terra_dir% && terraform apply --auto-approve"
+                    sh "cd ${terra_dir} && terraform apply --auto-approve"
                 }
             }
         }
