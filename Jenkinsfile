@@ -50,6 +50,7 @@ pipeline {
         stage("Terraform Plan") {
             steps {
                 script {
+                    sh "sudo chmod +w ${terra_dir}"
                     sh "cd ${terra_dir} && terraform plan"
                 }
             }
@@ -57,6 +58,7 @@ pipeline {
         stage("Terraform Apply") {
             steps {
                 script {
+                    sh "sudo chmod +w ${terra_dir}"
                     sh "cd ${terra_dir} && terraform apply --auto-approve"
                 }
             }
