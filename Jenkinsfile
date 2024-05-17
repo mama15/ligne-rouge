@@ -42,6 +42,7 @@ pipeline {
         stage("Terraform Initialiization") {
             steps {
                 script {
+                    sh "chmod +w ${terra_dir}"
                     sh "cd ${terra_dir} && terraform init"
                 }
             }
