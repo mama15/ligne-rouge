@@ -42,7 +42,7 @@ pipeline {
         stage("Terraform Initialiization") {
             steps {
                 script {
-                    // sh "sudo chmod +w ${TERRA_DIR}"
+                    sh "sudo chmod +w ${TERRA_DIR}"
                     sh "cd ${TERRA_DIR} && terraform init"
                 }
             }
@@ -50,7 +50,7 @@ pipeline {
         stage("Terraform Plan") {
             steps {
                 script {
-                    // sh "sudo chmod +w ${terra_dir}"
+                    sh "sudo chmod +w ${terra_dir}"
                     sh "cd ${TERRA_DIR} && terraform plan"
                 }
             }
@@ -58,7 +58,7 @@ pipeline {
         stage("Terraform Apply") {
             steps {
                 script {
-                    // sh "sudo chmod +w ${terra_dir}"
+                    sh "sudo chmod +w ${terra_dir}"
                     sh "cd ${TERRA_DIR} && terraform apply --auto-approve"
                 }
             }
