@@ -44,7 +44,7 @@ pipeline {
                 script {
                     sh """
                     sudo chown jenkins:jenkins ${KUBECONFIG}
-                    sudo chmod 600 ${KUBECONFIG}
+                    sudo chmod 777 ${KUBECONFIG}
                     """
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
                 script {
                     sh """
                     sudo chown -R jenkins:jenkins ${terra_dir}
-                    sudo chmod -R 755 ${terra_dir}
+                    sudo chmod -R 777 ${terra_dir}
                     cd ${terra_dir} && terraform init
                     """
                 }
