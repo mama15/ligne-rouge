@@ -39,6 +39,16 @@ pipeline {
                 }
             }
         }
+        stage('Set Permissions for Kubernetes Config') {
+            steps {
+                script {
+                    sh """
+                    sudo chown jenkins:jenkins ${KUBECONFIG}
+                    sudo chmod 600 ${KUBECONFIG}
+                    """
+                }
+            }
+        }
         stage("Terraform Initialiization") {
             steps {
                 script {
@@ -53,7 +63,6 @@ pipeline {
         stage("Terraform Plan") {
             steps {
                 script {
-                    // sh "sudo chmod +w ${terra_dir}"
                     sh "cd ${TERRA_DIR} && terraform plan"
                 }
             }
@@ -61,7 +70,6 @@ pipeline {
         stage("Terraform Apply") {
             steps {
                 script {
-                    // sh "sudo chmod +w ${terra_dir}"
                     sh "cd ${TERRA_DIR} && terraform apply --auto-approve"
                 }
             }
