@@ -17,18 +17,18 @@ provider "kubernetes" {
 
 # Récupération du contenu YAML pour le déploiement PHP
 resource  "kubernetes_manifest" "apache-deployment" {
-  manifest = yamldecode(file("../app-deployment.yml"))  
+  manifest = yamldecode(file("../kubernetes/app-deployment.yml"))  
 }
 
 # Récupération du contenu YAML pour le déploiement MySQL
 resource "kubernetes_manifest" "db-base" {
-  manifest = yamldecode(file("../db-deployment.yml")) 
+  manifest = yamldecode(file("../kubernetes/db-deployment.yml")) 
 }
 
 resource "kubernetes_manifest" "apache-service" {
-  manifest = yamldecode(file("../app-service.yml")) 
+  manifest = yamldecode(file("../kubernetes/app-service.yml")) 
 }
 
 resource "kubernetes_manifest" "db" {
-  manifest = yamldecode(file("../db-service.yml")) 
+  manifest = yamldecode(file("../kubernetes/db-service.yml")) 
 }
