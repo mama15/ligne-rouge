@@ -1,7 +1,20 @@
 ---
 - name: Deploy applications to Kubernetes
   hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
+    - name: Ensure kubernetes Python module is installed
+      ansible.builtin.pip:
+        name: kubernetes
+      register: kubernetes_pip
+
+    - name: Check if kubernetes module installation was successful
+      debug:
+        msg: "Kubernetes module is installed: {{ kubernetes_pip }}"
+        var: kubernetes_pip.results[0]
+        when: kubernetes_pip.results[0].state == "present"
+
     - name: Load Kubernetes config from Terraform output
       set_fact:
         kube_config: "{{ lookup('file', '../terraform/terraform.tfstate') | from_json | json_query('outputs.kube_config.value') }}"
