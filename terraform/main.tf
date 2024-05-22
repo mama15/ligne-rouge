@@ -1,5 +1,3 @@
-# Fichier : main.tf
-
 terraform {
   required_providers {
     kubernetes = {
@@ -9,26 +7,14 @@ terraform {
   }
 }
 
-# Déclaration du provider Kubernetes
 provider "kubernetes" {
   config_path = "/home/rootkit/.kube/config"
 }
 
+# Terraform provisionne uniquement le cluster Kubernetes ici
+# Les déploiements et services Kubernetes seront gérés par Ansible
 
-# Récupération du contenu YAML pour le déploiement PHP
-resource  "kubernetes_manifest" "apache-deployment" {
-  manifest = yamldecode(file("../kubernetes/app-deployment.yml"))  
-}
-
-# Récupération du contenu YAML pour le déploiement MySQL
-resource "kubernetes_manifest" "db-base" {
-  manifest = yamldecode(file("../kubernetes/db-deployment.yml")) 
-}
-
-resource "kubernetes_manifest" "apache-service" {
-  manifest = yamldecode(file("../kubernetes/app-service.yml")) 
-}
-
-resource "kubernetes_manifest" "db" {
-  manifest = yamldecode(file("../kubernetes/db-service.yml")) 
+output "kube_config" {
+  value = file("/home/rootkit/.kube/config")
+  sensitive = true
 }
