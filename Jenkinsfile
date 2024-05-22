@@ -7,6 +7,7 @@ pipeline {
         registryCredential = 'docker-credentiel'
         KUBECONFIG = "/home/rootkit/.kube/config"
         TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
+        ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
     }
     agent any
     stages {
@@ -49,31 +50,26 @@ pipeline {
                 }
             }
         }
-        stage("Terraform Initialiization") {
+        stage("Provision Kubernetes Cluster") {
             steps {
                 script {
                     sh """
                     sudo chown -R jenkins:jenkins ${terra_dir}
                     sudo chmod -R 777 ${terra_dir}
                     cd ${terra_dir} && terraform init
+                    sh "cd ${TERRA_DIR} && terraform plan"
+                    sh "cd ${TERRA_DIR} && terraform apply --auto-approve"
                     """
                 }
             }
         }
-        stage("Terraform Plan") {
+        stage("Deploying with Ansible") {
             steps {
                 script {
-                    sh "cd ${TERRA_DIR} && terraform plan"
+                    sh "cd ${ANSIBLE_DIR} && ansible-playbook -i ${KUBECONFIG} -u root -b -v playbook.yml"
                 }
             }
-        }
-        stage("Terraform Apply") {
-            steps {
-                script {
-                    sh "cd ${TERRA_DIR} && terraform apply --auto-approve"
-                }
-            }
-        }
+        }    
     }
     post {
         success {
