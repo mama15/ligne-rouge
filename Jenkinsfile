@@ -67,7 +67,7 @@ pipeline {
         stage("Deploying with Ansible") {
             steps {
                 script {
-                    sh "cd ${ANSIBLE_DIR} && ansible-playbook -i ${KUBECONFIG} -u root -b -v playbook.yml"
+                    sh "cd ${ANSIBLE_DIR} && ansible-playbook playbook.yml"
                 }
             }
         }    
