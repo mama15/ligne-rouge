@@ -64,13 +64,30 @@ pipeline {
                 }
             }
         }
-        stage("Deploying with Ansible") {
+        stage('Install Python dependencies') {
             steps {
                 script {
-                    sh "cd ${ANSIBLE_DIR} && ansible-playbook -v playbook.yml"
+                    sh """
+                    #!/bin/bash
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install kubernetes ansible
+                    """
                 }
             }
-        }    
+        }
+        stage('Deploying with Ansible') {
+            steps {
+                script {
+                    sh """
+                    #!/bin/bash
+                    source venv/bin/activate
+                    cd ${ANSIBLE_DIR}
+                    ansible-playbook playbook.yml -e "ansible_python_interpreter=${WORKSPACE}/venv/bin/python"
+                    """
+                }
+            }
+        }   
     }
     post {
         success {
