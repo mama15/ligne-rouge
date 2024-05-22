@@ -64,17 +64,13 @@ pipeline {
                 }
             }
         }
-        stage('Deploying with Ansible') {
+        stage("Deploying with Ansible") {
             steps {
                 script {
-                    sh """
-                    source venv/bin/activate
-                    cd ${ANSIBLE_DIR}
-                    ansible-playbook playbook.yml
-                    """
+                    sh "cd ${ANSIBLE_DIR} && ansible-playbook -v playbook.yml"
                 }
             }
-        }  
+        }    
     }
     post {
         success {
