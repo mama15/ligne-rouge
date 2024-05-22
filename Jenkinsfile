@@ -54,11 +54,12 @@ pipeline {
             steps {
                 script {
                     sh """
-                    sudo chown -R jenkins:jenkins ${terra_dir}
-                    sudo chmod -R 777 ${terra_dir}
-                    cd ${terra_dir} && terraform init
-                    sh "cd ${TERRA_DIR} && terraform plan"
-                    sh "cd ${TERRA_DIR} && terraform apply --auto-approve"
+                    sudo chown -R jenkins:jenkins ${TERRA_DIR}
+                    sudo chmod -R 777 ${TERRA_DIR}
+                    cd ${TERRA_DIR}
+                    terraform init
+                    terraform plan
+                    terraform apply --auto-approve
                     """
                 }
             }
