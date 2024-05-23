@@ -97,10 +97,8 @@ pipeline {
             sudo python3 -m venv venv
             sudo chown -R jenkins:jenkins venv
             source venv/bin/activate
-            export PATH="$PATH:/usr/local/bin" 
-            export ANSIBLE_CONFIG="/etc/ansible/ansible.cfg" 
             pip install kubernetes ansible
-            ansible-playbook playbook.yml
+            ansible-playbook ${ANSIBLE_DIR}/playbook.yml
             """
         }
     }
