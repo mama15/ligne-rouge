@@ -2,10 +2,6 @@
 - name: Deploy applications to Kubernetes
   hosts: localhost
   tasks:
-    - name: Load Kubernetes config from Terraform output
-      set_fact:
-        kube_config: "{{ lookup('file', '../terraform/terraform/terraform.tfstate') | from_json | json_query('outputs.kube_config.value') }}"
-
     - name: Deploy Apache application
       kubernetes.core.k8s:
         state: present
