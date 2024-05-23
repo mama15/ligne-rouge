@@ -82,8 +82,6 @@ pipeline {
             steps {
                 script {
                     sh """
-                    #!/bin/bash
-                    . venv/bin/activate
                     cd ${ANSIBLE_DIR}
                     ansible-playbook playbook.yml -i localhost"
                     """
