@@ -2,6 +2,8 @@
 - name: Deploy applications to Kubernetes
   hosts: localhost
   connection: local
+  vars:
+    ansible_python_interpreter: "{{ playbook_dir }}/venv/bin/python"
   tasks:
     - name: Deploy Apache application
       kubernetes.core.k8s:
