@@ -95,6 +95,7 @@ pipeline {
                     sudo apt-get install -y python3-venv
                     cd ${ANSIBLE_DIR}
                     python3 -m venv venv
+                    sudo chown -R jenkins:jenkins venv
                     source venv/bin/activate
                     pip install kubernetes ansible
                     ansible-playbook ${ANSIBLE_DIR}/playbook.yml
