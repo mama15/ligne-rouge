@@ -93,7 +93,7 @@ pipeline {
                     sh """
                     sudo apt-get update
                     sudo apt-get install -y python3-venv
-                    cd ${TERRA_DIR}
+                    cd ${ANSIBLE_DIR}
                     python3 -m venv venv
                     source venv/bin/activate
                     pip install kubernetes ansible
