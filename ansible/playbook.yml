@@ -1,6 +1,7 @@
 ---
 - name: Deploy applications to Kubernetes
   hosts: localhost
+  connection: local
   tasks:
     - name: Deploy Apache application
       kubernetes.core.k8s:
