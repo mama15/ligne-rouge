@@ -80,14 +80,16 @@ pipeline {
         }
         stage('Deploying with Ansible') {
             steps {
-                ansiblePlaybook(
-                    installation: 'Ansible',
-                    playbook: "${ANSIBLE_DIR}/playbook.yml",
-                    inventory: 'localhost,',
-                    extras: '--extra-vars "ansible_python_interpreter=/usr/bin/python3"'
-                )
+                script {
+                    sh """
+                    #!/bin/bash
+                    . venv/bin/activate
+                    cd ${ANSIBLE_DIR}
+                    ansible-playbook playbook.yml -e "ansible_python_interpreter=venv/bin/python"
+                    """
+                }
             }
-        }   
+        } 
     }
     post {
         success {
