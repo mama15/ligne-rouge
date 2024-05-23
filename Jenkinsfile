@@ -82,8 +82,10 @@ pipeline {
             steps {
                 script {
                     sh """
+                    #!/bin/bash
+                    . venv/bin/activate
                     cd ${ANSIBLE_DIR}
-                    ansible-playbook playbook.yml -i localhost"
+                    ansible-playbook playbook.yml -i localhost, -e "ansible_python_interpreter=$(realpath venv/bin/python)"
                     """
                 }
             }
