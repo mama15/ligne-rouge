@@ -30,16 +30,16 @@ pipeline {
                 }
             }
         }
-        stage('Pushing Images to Docker Registry') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        webDockerImage.push('latest')
-                        dbDockerImage.push('latest')
-                    }
-                }
-            }
-        }
+        // stage('Pushing Images to Docker Registry') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+        //                 webDockerImage.push('latest')
+        //                 dbDockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
         stage('Set Permissions for Kubernetes Config') {
             steps {
                 script {
