@@ -88,21 +88,24 @@ pipeline {
         //     }
         // }
         stage('Install Python dependencies and Deploy with Ansible') {
-            steps {
-                script {
-                    sh """
-                    sudo apt-get update
-                    sudo apt-get install -y python3-venv
-                    cd ${ANSIBLE_DIR}
-                    python3 -m venv venv
-                    sudo chown -R jenkins:jenkins venv
-                    source venv/bin/activate
-                    pip install kubernetes ansible
-                    ansible-playbook ${ANSIBLE_DIR}/playbook.yml
-                    """
-                }
-            }
+    steps {
+        script {
+            sh """
+            sudo apt-get update
+            sudo apt-get install -y python3-venv
+            cd ${ANSIBLE_DIR}
+            sudo python3 -m venv venv
+            sudo chown -R jenkins:jenkins venv
+            source venv/bin/activate
+            export PATH="$PATH:/usr/local/bin" 
+            export ANSIBLE_CONFIG="/etc/ansible/ansible.cfg" 
+            pip install kubernetes ansible
+            ansible-playbook playbook.yml
+            """
         }
+    }
+}
+
     }
     post {
         success {
