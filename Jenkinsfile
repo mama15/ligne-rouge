@@ -72,21 +72,12 @@ pipeline {
                     sudo apt-get update
                     sudo apt-get install -y python3-venv
                     python3 -m venv venv
-                    source venv/bin/activate
+                    . venv/bin/activate
                     pip install kubernetes ansible
                     """
                 }
             }
         }
-        // stage('Install Python dependencies') {
-        //     steps {
-        //         withPythonEnv('/usr/bin/python3') {
-        //             sh """
-        //             pip install kubernetes
-        //             """
-        //         }
-        //     }
-        // }
         stage('Deploying with Ansible') {
             steps {
                 ansiblePlaybook(
