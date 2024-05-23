@@ -64,24 +64,39 @@ pipeline {
                 }
             }
         }
-        stage('Install Python dependencies') {
+        // stage('Install Python dependencies') {
+        //     steps {
+        //         script {
+        //             sh """
+        //             #!/bin/bash
+        //             sudo apt-get update
+        //             sudo apt-get install -y python3-venv
+        //             python3 -m venv venv
+        //             . venv/bin/activate
+        //             pip install kubernetes ansible
+        //             """
+        //         }
+        //     }
+        // }
+        // stage('Deploying with Ansible') {
+        //     steps {
+        //         script {
+        //             sh """
+        //             ansible-playbook ${ANSIBLE_DIR}/playbook.yml
+        //             """
+        //         }
+        //     }
+        // }
+        stage('Install Python dependencies and Deploy with Ansible') {
             steps {
                 script {
                     sh """
-                    #!/bin/bash
                     sudo apt-get update
                     sudo apt-get install -y python3-venv
+                    cd ${TERRA_DIR}
                     python3 -m venv venv
-                    . venv/bin/activate
+                    source venv/bin/activate
                     pip install kubernetes ansible
-                    """
-                }
-            }
-        }
-        stage('Deploying with Ansible') {
-            steps {
-                script {
-                    sh """
                     ansible-playbook ${ANSIBLE_DIR}/playbook.yml
                     """
                 }
