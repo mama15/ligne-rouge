@@ -85,7 +85,7 @@ pipeline {
                     #!/bin/bash
                     . venv/bin/activate
                     cd ligne-rouge/ansible
-                    ansible-playbook playbook.yml -i localhost, -e "ansible_python_interpreter=$(realpath venv/bin/python)"
+                    ansible-playbook playbook.yml -i localhost, -e "ansible_python_interpreter=\$ansible_dir/venv/bin/python"
                     """
                 }
             }
