@@ -1,20 +1,20 @@
 pipeline {
     environment {
-        webDockerImageName = "martinez42/ligne-rouge-web"
-        dbDockerImageName = "martinez42/ligne-rouge-db"
+        webDockerImageName = "thiamdevosp/file-rouge-web"
+        dbDockerImageName = "thiamdevosp/file-rouge-db"
         webDockerImage = ""
         dbDockerImage = ""
         registryCredential = 'docker-credentiel'
-        KUBECONFIG = "/home/rootkit/.kube/config"
-        TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
-        ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
+        KUBECONFIG = "/home/thioro-thiam/.kube/config"
+        TERRA_DIR  = "/home/thioro-thiam/projet-fil-rouge/ligne-rouge-master/terraform"
+        ANSIBLE_DIR = "/home/thioro-thiam/projet-fil-rouge/ligne-rouge-master/ansible"
     }
     agent any
     stages {
         stage('Checkout Source') {
             steps {
-                git 'https://github.com/issa2580/ligne-rouge.git'
-            }
+                git 'https://github.com/mama15/ligne-rouge.git'
+        
         }
         stage('Build Web Docker image') {
             steps {
