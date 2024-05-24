@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: web
-          image: martinez42/ligne-rouge-web:latest
+          image: thiamdevosp/file-rouge-web:latest
           ports:
             - containerPort: 80
