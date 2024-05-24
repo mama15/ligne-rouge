@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: martinez42/ligne-rouge-db:latest
+          image: thiamdevosp/file-rouge-db:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
