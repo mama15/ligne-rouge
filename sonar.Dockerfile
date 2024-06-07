@@ -1,9 +1,1 @@
-FROM sonarqube:8.9-community
-
-ENV SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/sonarqube
-
-ENV SONARQUBE_JDBC_USERNAME=sonar
-
-ENV SONARQUBE_JDBC_PASSWORD=sonar
-
-ENV SONARQUBE_VM_MAX_MAP_COUNT=662144
+FROM sonarqube:7.7-community
