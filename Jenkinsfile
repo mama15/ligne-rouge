@@ -18,6 +18,12 @@ pipeline {
                 git 'https://github.com/issa2580/ligne-rouge.git'
             }
         }
+        stage('Check SonarScanner') {
+            steps {
+                sh 'which sonar-scanner'
+                sh 'sonar-scanner --version'
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
