@@ -1,5 +1,7 @@
 pipeline {
     environment {
+        SONARQUBE_URL = 'http://localhost:9000'
+        SONARQUBE_TOKEN = credentials('sonarqube-token')
         webDockerImageName = "martinez42/ligne-rouge-web"
         dbDockerImageName = "martinez42/ligne-rouge-db"
         webDockerImage = ""
@@ -14,6 +16,13 @@ pipeline {
         stage('Checkout Source') {
             steps {
                 git 'https://github.com/issa2580/ligne-rouge.git'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh 'sonar-scanner -Dsonar.projectKey=file-rouge -Dsonar.sources=. -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN'
+                }
             }
         }
         stage('Build Web Docker image') {
