@@ -19,16 +19,10 @@ pipeline {
                 git 'https://github.com/issa2580/ligne-rouge.git'
             }
         }
-        // stage('Check SonarScanner') {
-        //     steps {
-        //         sh 'which sonar-scanner'
-        //         sh 'sonar-scanner --version'
-        //     }
-        // }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh '/opt/sonar-scanner-6.0.0.4432-linux/bin/sonar-scanner -Dsonar.projectKey=file-rouge -Dsonar.sources=. -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN -Dsonar.java.jdkHome=$JAVA_URL'
+                    sh '/opt/sonar-scanner-6.0.0.4432-linux/bin/sonar-scanner -Dsonar.projectKey=file-rouge -Dsonar.sources=. -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN -Dsonar.java.binaries=**/*.class'
                 }
             }
         }
