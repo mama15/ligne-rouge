@@ -3,10 +3,10 @@ pipeline {
     //     SONARQUBE_URL = 'http://localhost:9000'
     //     SONARQUBE_TOKEN = credentials('token-sonarqube')
     //     SONARQUBE_PROJECT = 'ligne-rouge'
-    //     webDockerImageName = "martinez42/ligne-rouge-web"
-    //     dbDockerImageName = "martinez42/ligne-rouge-db"
-    //     webDockerImage = ""
-    //     dbDockerImage = ""
+        webDockerImageName = "martinez42/ligne-rouge-web"
+        dbDockerImageName = "martinez42/ligne-rouge-db"
+        webDockerImage = ""
+        dbDockerImage = ""
     //     registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
