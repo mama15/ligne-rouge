@@ -4,9 +4,9 @@ pipeline {
     //     SONARQUBE_TOKEN = credentials('token-sonarqube')
     //     SONARQUBE_PROJECT = 'ligne-rouge'
         // webDockerImageName = "martinez42/ligne-rouge-web"
-        // dbDockerImageName = "martinez42/ligne-rouge-db"
+        dbDockerImageName = "martinez42/ligne-rouge-db"
         // webDockerImage = ""
-        // dbDockerImage = ""
+        dbDockerImage = ""
     //     registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
@@ -33,13 +33,13 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Build DB Docker image') {
-        //     steps {
-        //         script {
-        //             dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
-        //         }
-        //     }
-        // }
+        stage('Build DB Docker image') {
+            steps {
+                script {
+                    dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
+                }
+            }
+        }
         // stage('Pushing Images to Docker Registry') {
         //     steps {
         //         script {
