@@ -17,7 +17,11 @@ pipeline {
         // stage('Checkout Source') {
         //     steps {
         //         git 'https://github.com/issa2580/ligne-rouge.git'
+        //     }stage('Checkout Source') {
+        //     steps {
+        //         git 'https://github.com/issa2580/ligne-rouge.git'
         //     }
+        // }
         // }
         // stage('SonarQube Analysis') {
         //     steps {
@@ -26,20 +30,20 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Build Web Docker image') {
-            steps {
-                script {
-                    webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
-                }
-            }
-        }
-        stage('Build DB Docker image') {
-            steps {
-                script {
-                    dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
-                }
-            }
-        }
+        // stage('Build Web Docker image') {
+        //     steps {
+        //         script {
+        //             webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
+        //         }
+        //     }
+        // }
+        // stage('Build DB Docker image') {
+        //     steps {
+        //         script {
+        //             dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
+        //         }
+        //     }
+        // }
         // stage('Pushing Images to Docker Registry') {
         //     steps {
         //         script {
