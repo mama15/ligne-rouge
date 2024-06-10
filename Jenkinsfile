@@ -3,11 +3,11 @@ pipeline {
     //     SONARQUBE_URL = 'http://localhost:9000'
     //     SONARQUBE_TOKEN = credentials('token-sonarqube')
     //     SONARQUBE_PROJECT = 'ligne-rouge'
-        // webDockerImageName = "martinez42/ligne-rouge-web"
+        webDockerImageName = "martinez42/ligne-rouge-web"
         dbDockerImageName = "martinez42/ligne-rouge-db"
-        // webDockerImage = ""
+        webDockerImage = ""
         dbDockerImage = ""
-    //     registryCredential = 'docker-credentiel'
+        registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
     //     ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
@@ -26,13 +26,13 @@ pipeline {
         //         }
         //     }
         // }
-        // stage('Build Web Docker image') {
-        //     steps {
-        //         script {
-        //             webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
-        //         }
-        //     }
-        // }
+        stage('Build Web Docker image') {
+            steps {
+                script {
+                    webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
+                }
+            }
+        }
         stage('Build DB Docker image') {
             steps {
                 script {
@@ -40,16 +40,16 @@ pipeline {
                 }
             }
         }
-        // stage('Pushing Images to Docker Registry') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-        //                 webDockerImage.push('latest')
-        //                 dbDockerImage.push('latest')
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Pushing Images to Docker Registry') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                        webDockerImage.push('latest')
+                        dbDockerImage.push('latest')
+                    }
+                }
+            }
+        }
         // stage("Provision Kubernetes Cluster with Terraform") {
         //     steps {
         //         script {
