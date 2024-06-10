@@ -14,14 +14,14 @@ pipeline {
     // }
     agent any
     stages {
-        // stage('Checkout Source') {
-        //     steps {
-        //         git 'https://github.com/issa2580/ligne-rouge.git'
-        //     }stage('Checkout Source') {
-        //     steps {
-        //         git 'https://github.com/issa2580/ligne-rouge.git'
-        //     }
-        // }
+        stage('Checkout Source') {
+            steps {
+                git 'https://github.com/issa2580/ligne-rouge.git'
+            }stage('Checkout Source') {
+            steps {
+                git 'https://github.com/issa2580/ligne-rouge.git'
+            }
+        }
         // }
         // stage('SonarQube Analysis') {
         //     steps {
