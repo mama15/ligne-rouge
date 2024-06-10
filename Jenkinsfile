@@ -14,9 +14,11 @@ pipeline {
     // }
     agent any
     stages {
-        stage('Checkout Source') {
-            steps {
-                git 'https://github.com/issa2580/ligne-rouge.git'
+        stages {
+            stage('Hello') {
+                steps {
+                    echo 'Hello World'
+                }
             }
         }
         // stage('SonarQube Analysis') {
