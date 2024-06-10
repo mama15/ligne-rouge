@@ -1,24 +1,24 @@
 pipeline {
-    environment {
+    // environment {
     //     SONARQUBE_URL = 'http://localhost:9000'
     //     SONARQUBE_TOKEN = credentials('token-sonarqube')
     //     SONARQUBE_PROJECT = 'ligne-rouge'
-        webDockerImageName = "martinez42/ligne-rouge-web"
-        dbDockerImageName = "martinez42/ligne-rouge-db"
-        webDockerImage = ""
-        dbDockerImage = ""
+        // webDockerImageName = "martinez42/ligne-rouge-web"
+        // dbDockerImageName = "martinez42/ligne-rouge-db"
+        // webDockerImage = ""
+        // dbDockerImage = ""
     //     registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
     //     ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
-    }
+    // }
     agent any
     stages {
-        stage('Checkout Source') {
-            steps {
-                git 'https://github.com/issa2580/ligne-rouge.git'
-            }
-        }
+        // stage('Checkout Source') {
+        //     steps {
+        //         git 'https://github.com/issa2580/ligne-rouge.git'
+        //     }
+        // }
         // stage('SonarQube Analysis') {
         //     steps {
         //         withSonarQubeEnv('SonarQube') {
