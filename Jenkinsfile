@@ -14,27 +14,31 @@ pipeline {
     }
     agent any
     stages {
-        stage('Build Web Docker image') {
-            steps {
-                script {
-                    webDockerImage = docker.build webDockerImageName, "-f docker/App.Dockerfile ."
-                }
-            }
-        }
-        stage('Build DB Docker image') {
-            steps {
-                script {
-                    dbDockerImage = docker.build dbDockerImageName, "-f docker/Db.Dockerfile ."
-                }
-            }
-        }
-        // stage('Build Docker images') {
+        // stage('Build Web Docker image') {
         //     steps {
         //         script {
-        //             sh 'docker-compose up --build'
+        //             webDockerImage = docker.build webDockerImageName, "-f docker/App.Dockerfile ."
         //         }
         //     }
         // }
+        // stage('Build DB Docker image') {
+        //     steps {
+        //         script {
+        //             dbDockerImage = docker.build dbDockerImageName, "-f docker/Db.Dockerfile ."
+        //         }
+        //     }
+        // }
+        stage('Build Docker images') {
+            steps {
+                script {
+                    sh """
+                    docker-compose up --build
+                    echo 'Docker Compose build completed'
+                    docker images
+                    """
+                }
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
