@@ -34,35 +34,35 @@ pipeline {
                 }
             }
         }
-        // stage('Push Docker images to registry') {
-        //     steps {
-        //         script {
-        //             def dockerRegistry = "https://registry.hub.docker.com/"
-        //             sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
-        //             def dockerImages = [
-        //                 "ligne-rouge_master-postgres-1:latest",
-        //                 "ligne-rouge_master-db-1:latest",
-        //                 "ligne-rouge_master-sonarqube-1:latest",
-        //                 "ligne-rouge_master-web-1:latest"
-        //             ]
-        //             dockerImages.each { dockerImage ->
-        //                 def taggedImage = "${dockerRegistry}/${dockerImage}"
-        //                 sh "docker push ${taggedImage}"
-        //             }
-        //         }
-        //     }
-        // }
-
-        stage('Pushing Images to Docker Registry') {
+        stage('Push Docker images to registry') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        webDockerImage.push('latest')
-                        dbDockerImage.push('latest')
+                    def dockerRegistry = "https://registry.hub.docker.com/"
+                    sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
+                    def dockerImages = [
+                        "ligne-rouge_master-sonarqube:latest",
+                        "martinez42/ligne-rouge-web:latest",
+                        "martinez42/ligne-rouge-db:latest",
+                        "ligne-rouge-postgres:latest",
+                    ]
+                    dockerImages.each { dockerImage ->
+                        def taggedImage = "${dockerRegistry}/${dockerImage}"
+                        sh "docker push ${taggedImage}"
                     }
                 }
             }
         }
+
+        // stage('Pushing Images to Docker Registry') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+        //                 webDockerImage.push('latest')
+        //                 dbDockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
         // stage("Provision Kubernetes Cluster with Terraform") {
         //     steps {
         //         script {
