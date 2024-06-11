@@ -37,7 +37,7 @@ pipeline {
         stage('Push Docker images to registry') {
             steps {
                 script {
-                    def dockerRegistry = "https://hub.docker.com/"
+                    def dockerRegistry = "https://registry.hub.docker.com/"
                     sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
                     def dockerImages = [
                         "ligne-rouge-postgres:latest",
