@@ -3,10 +3,10 @@ pipeline {
         SONAR_SCANNER_HOME = '/opt/sonar-scanner-6.0.0.4432-linux'
         SONAR_HOST_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = 'sqp_0aa4e3fd4d34eeea2d4a5232dcb972023f6b6258'
-        webDockerImageName = "martinez42/ligne-rouge-web"
-        dbDockerImageName = "martinez42/ligne-rouge-db"
-        webDockerImage = ""
-        dbDockerImage = ""
+        // webDockerImageName = "martinez42/ligne-rouge-web"
+        // dbDockerImageName = "martinez42/ligne-rouge-db"
+        // webDockerImage = ""
+        // dbDockerImage = ""
         // registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
