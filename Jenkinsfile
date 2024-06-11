@@ -31,12 +31,7 @@ pipeline {
         stage('Build Docker images') {
             steps {
                 script {
-                    sh """
-                    docker-compose down -v
-                    docker-compose up --build -d
-                    echo 'Docker Compose build completed'
-                    docker images
-                    """
+                    sh 'docker-compose up --build -d'
                 }
             }
         }
