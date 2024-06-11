@@ -37,8 +37,8 @@ pipeline {
         // stage('Push Docker images to registry') {
         //     steps {
         //         script {
-        //             def dockerRegistry = "https://registry.hub.docker.com/"
-        //             sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
+                    // def dockerRegistry = "https://registry.hub.docker.com/"
+                    // sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
         //             def dockerImages = [
         //                 // "ligne-rouge_master-sonarqube:latest",
         //                 "martinez42/ligne-rouge-web:latest",
@@ -54,13 +54,13 @@ pipeline {
         stage('Pushing Images to Docker Registry') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-credentiel') {
-                        def dockerImages = [
-                            "martinez42/ligne-rouge-web:latest",
-                        ]
-                        dockerImages.each { dockerImage ->
-                            docker.image(dockerImage).push()
-                        }
+                    def dockerRegistry = "https://registry.hub.docker.com/"
+                    sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
+                    def dockerImages = [
+                        "martinez42/ligne-rouge-web:latest",
+                    ]
+                    dockerImages.each { dockerImage ->
+                        docker.image(dockerImage).push()
                     }
                 }
             }
