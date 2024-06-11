@@ -32,7 +32,8 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker-compose up --build
+                    docker-compose down -v
+                    docker-compose up --build -d
                     echo 'Docker Compose build completed'
                     docker images
                     """
