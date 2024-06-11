@@ -34,24 +34,38 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker images to registry') {
+        // stage('Push Docker images to registry') {
+        //     steps {
+        //         script {
+        //             def dockerRegistry = "https://registry.hub.docker.com/"
+        //             sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
+        //             def dockerImages = [
+        //                 // "ligne-rouge_master-sonarqube:latest",
+        //                 "martinez42/ligne-rouge-web:latest",
+        //                 "martinez42/ligne-rouge-db:latest",
+        //                 // "ligne-rouge-postgres:latest",
+        //             ]
+        //             dockerImages.each { dockerImage ->
+        //                 docker.image(dockerImage).push()
+        //             }
+        //         }
+        //     }
+        // }
+        stage('Pushing Images to Docker Registry') {
             steps {
                 script {
-                    def dockerRegistry = "https://registry.hub.docker.com/"
-                    sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
-                    def dockerImages = [
-                        // "ligne-rouge_master-sonarqube:latest",
-                        "martinez42/ligne-rouge-web:latest",
-                        "martinez42/ligne-rouge-db:latest",
-                        // "ligne-rouge-postgres:latest",
-                    ]
-                    dockerImages.each { dockerImage ->
-                        def taggedImage = "${dockerRegistry}/${dockerImage}"
-                        sh "docker push ${taggedImage}"
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-credentiel') {
+                        def dockerImages = [
+                            "martinez42/ligne-rouge-web:latest",
+                        ]
+                        dockerImages.each { dockerImage ->
+                            docker.image(dockerImage).push()
+                        }
                     }
                 }
             }
         }
+
 
         // stage('Pushing Images to Docker Registry') {
         //     steps {
