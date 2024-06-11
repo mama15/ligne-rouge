@@ -3,11 +3,11 @@ pipeline {
         SONAR_SCANNER_HOME = '/opt/sonar-scanner-6.0.0.4432-linux'
         SONAR_HOST_URL = 'http://sonarqube:9000'
         SONAR_TOKEN = 'sqp_678a946ed1712a1fcd3561540b4fae02d9c7b757'
-        webDockerImageName = "martinez42/ligne-rouge-web"
-        dbDockerImageName = "martinez42/ligne-rouge-db"
-        webDockerImage = ""
-        dbDockerImage = ""
-        registryCredential = 'docker-credentiel'
+        // webDockerImageName = "martinez42/ligne-rouge-web"
+        // dbDockerImageName = "martinez42/ligne-rouge-db"
+        // webDockerImage = ""
+        // dbDockerImage = ""
+        // registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
     //     ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
@@ -52,16 +52,16 @@ pipeline {
                 }
             }
         }
-        stage('Pushing Images to Docker Registry') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        webDockerImage.push('latest')
-                        dbDockerImage.push('latest')
-                    }
-                }
-            }
-        }
+        // stage('Pushing Images to Docker Registry') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+        //                 webDockerImage.push('latest')
+        //                 dbDockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
         // stage("Provision Kubernetes Cluster with Terraform") {
         //     steps {
         //         script {
