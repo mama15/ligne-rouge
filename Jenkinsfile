@@ -34,24 +34,24 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker images to registry') {
-            steps {
-                script {
-                    def dockerRegistry = "https://registry.hub.docker.com/"
-                    sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
-                    def dockerImages = [
-                        "ligne-rouge_master-postgres-1:latest",
-                        "ligne-rouge_master-db-1:latest",
-                        "ligne-rouge_master-sonarqube-1:latest",
-                        "ligne-rouge_master-web-1:latest"
-                    ]
-                    dockerImages.each { dockerImage ->
-                        def taggedImage = "${dockerRegistry}/${dockerImage}"
-                        sh "docker push ${taggedImage}"
-                    }
-                }
-            }
-        }
+        // stage('Push Docker images to registry') {
+        //     steps {
+        //         script {
+        //             def dockerRegistry = "https://registry.hub.docker.com/"
+        //             sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
+        //             def dockerImages = [
+        //                 "ligne-rouge_master-postgres-1:latest",
+        //                 "ligne-rouge_master-db-1:latest",
+        //                 "ligne-rouge_master-sonarqube-1:latest",
+        //                 "ligne-rouge_master-web-1:latest"
+        //             ]
+        //             dockerImages.each { dockerImage ->
+        //                 def taggedImage = "${dockerRegistry}/${dockerImage}"
+        //                 sh "docker push ${taggedImage}"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Pushing Images to Docker Registry') {
             steps {
