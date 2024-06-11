@@ -1,8 +1,8 @@
 pipeline {
     environment {
-        // SONARQUBE_URL = 'http://localhost:9000'
-        // SONARQUBE_TOKEN = credentials('token-sonarqube')
-        // SONARQUBE_PROJECT = 'ligne-rouge'
+        SONAR_SCANNER_HOME = '/opt/sonar-scanner-6.0.0.4432-linux'
+        SONAR_HOST_URL = 'http://sonarqube:9000'
+        SONAR_TOKEN = 'sqp_678a946ed1712a1fcd3561540b4fae02d9c7b757'
         webDockerImageName = "martinez42/ligne-rouge-web"
         dbDockerImageName = "martinez42/ligne-rouge-db"
         webDockerImage = ""
@@ -18,11 +18,11 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """
-                    /opt/sonar-scanner-6.0.0.4432-linux/bin/sonar-scanner \
+                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.projectKey=ligne-rouge \
                     -Dsonar.sources=. \
-                    -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.token=sqp_678a946ed1712a1fcd3561540b4fae02d9c7b757
+                    -Dsonar.host.url=${SONAR_HOST_URL} \
+                    -Dsonar.login=${SONAR_TOKEN}
                     """
                 }
             }
