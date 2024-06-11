@@ -14,20 +14,6 @@ pipeline {
     }
     agent any
     stages {
-        // stage('Build Web Docker image') {
-        //     steps {
-        //         script {
-        //             webDockerImage = docker.build webDockerImageName, "-f docker/App.Dockerfile ."
-        //         }
-        //     }
-        // }
-        // stage('Build DB Docker image') {
-        //     steps {
-        //         script {
-        //             dbDockerImage = docker.build dbDockerImageName, "-f docker/Db.Dockerfile ."
-        //         }
-        //     }
-        // }
         stage('Build Docker images') {
             steps {
                 script {
@@ -48,6 +34,25 @@ pipeline {
                 }
             }
         }
+        stage('Push Docker images to registry') {
+            steps {
+                script {
+                    def dockerRegistry = "https://hub.docker.com/"
+                    sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
+                    def dockerImages = [
+                        "ligne-rouge-postgres:latest",
+                        "ligne-rouge-db:latest",
+                        "ligne-rouge-sonarqube:latest",
+                        "ligne-rouge-web:latest"
+                    ]
+                    dockerImages.each { dockerImage ->
+                        def taggedImage = "${dockerRegistry}/${dockerImage}"
+                        sh "docker push ${taggedImage}"
+                    }
+                }
+            }
+        }
+
         // stage('Pushing Images to Docker Registry') {
         //     steps {
         //         script {
