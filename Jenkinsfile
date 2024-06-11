@@ -17,14 +17,16 @@ pipeline {
         stage('Build Web Docker image') {
             steps {
                 script {
-                    webDockerImage = docker.build webDockerImageName, "-f App.Dockerfile ."
+                    env.DOCKER_HOST = 'unix:///run/docker.sock'
+                    webDockerImage = docker.build webDockerImageName, "-f docker/App.Dockerfile ."
                 }
             }
         }
         stage('Build DB Docker image') {
             steps {
                 script {
-                    dbDockerImage = docker.build dbDockerImageName, "-f Db.Dockerfile ."
+                    env.DOCKER_HOST = 'unix:///run/docker.sock'
+                    dbDockerImage = docker.build dbDockerImageName, "-f docker/Db.Dockerfile ."
                 }
             }
         }
