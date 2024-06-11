@@ -1,8 +1,8 @@
 pipeline {
     environment {
-        SONARQUBE_URL = 'http://localhost:9000'
-        SONARQUBE_TOKEN = credentials('token-sonarqube')
-        SONARQUBE_PROJECT = 'ligne-rouge'
+        // SONARQUBE_URL = 'http://localhost:9000'
+        // SONARQUBE_TOKEN = credentials('token-sonarqube')
+        // SONARQUBE_PROJECT = 'ligne-rouge'
         webDockerImageName = "martinez42/ligne-rouge-web"
         dbDockerImageName = "martinez42/ligne-rouge-db"
         webDockerImage = ""
