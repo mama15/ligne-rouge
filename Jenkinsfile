@@ -7,7 +7,7 @@ pipeline {
         // dbDockerImageName = "martinez42/ligne-rouge-db"
         // webDockerImage = ""
         // dbDockerImage = ""
-        registryCredential = 'docker-credentiel'
+        // registryCredential = 'docker-credentiel'
     //     KUBECONFIG = "/home/rootkit/.kube/config"
     //     TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
     //     ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
@@ -34,51 +34,32 @@ pipeline {
                 }
             }
         }
-        // stage('Push Docker images to registry') {
-        //     steps {
-        //         script {
-                    // def dockerRegistry = "https://registry.hub.docker.com/"
-                    // sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
-        //             def dockerImages = [
-        //                 // "ligne-rouge_master-sonarqube:latest",
-        //                 "martinez42/ligne-rouge-web:latest",
-        //                 "martinez42/ligne-rouge-db:latest",
-        //                 // "ligne-rouge-postgres:latest",
-        //             ]
-        //             dockerImages.each { dockerImage ->
-        //                 docker.image(dockerImage).push()
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Pushing Images to Docker Registry') {
-        //     steps {
-        //         script {
-        //             def dockerRegistry = "https://registry.hub.docker.com/"
-        //             sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
-        //             def dockerImages = [
-        //                 "martinez42/ligne-rouge-web:latest",
-        //             ]
-        //             dockerImages.each { dockerImage ->
-        //                 docker.image(dockerImage).push()
-        //             }
-        //         }
-        //     }
-        // }
-
-
-        stage('Pushing Images to Docker Registry') {
+       stage('Pushing Images to Docker Registry') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-                        docker.image('ligne-rouge_master-web').push('latest')
-                        docker.image('ligne-rouge_master-sonarqube').push('latest')
-                        docker.image('ligne-rouge_master-postgres').push('latest')
-                        docker.image('ligne-rouge_master-db').push('latest')
-                    }
+                    def dockerRegistry = "https://registry.hub.docker.com/"
+                    def dockerUsername = "martinez42"
+                    def dockerPassword = "Passer@4221"
+                    sh "docker login $dockerRegistry -u $dockerUsername -p $dockerPassword"
+                    sh "docker push ligne-rouge_master-web:latest"
+                    sh "docker push ligne-rouge_master-sonarqube:latest"
+                    sh "docker push ligne-rouge_master-postgres:latest"
+                    sh "docker push ligne-rouge_master-db:latest"
                 }
             }
         }
+        // stage('Pushing Images to Docker Registry') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+        //                 docker.image('ligne-rouge_master-web').push('latest')
+        //                 docker.image('ligne-rouge_master-sonarqube').push('latest')
+        //                 docker.image('ligne-rouge_master-postgres').push('latest')
+        //                 docker.image('ligne-rouge_master-db').push('latest')
+        //             }
+        //         }
+        //     }
+        // }
         // stage("Provision Kubernetes Cluster with Terraform") {
         //     steps {
         //         script {
