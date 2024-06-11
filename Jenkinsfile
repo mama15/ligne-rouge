@@ -40,10 +40,10 @@ pipeline {
                     def dockerRegistry = "https://registry.hub.docker.com/"
                     sh "docker login $dockerRegistry -u martinez42 -p Passer@4221"
                     def dockerImages = [
-                        "ligne-rouge_master-sonarqube:latest",
+                        // "ligne-rouge_master-sonarqube:latest",
                         "martinez42/ligne-rouge-web:latest",
                         "martinez42/ligne-rouge-db:latest",
-                        "ligne-rouge-postgres:latest",
+                        // "ligne-rouge-postgres:latest",
                     ]
                     dockerImages.each { dockerImage ->
                         def taggedImage = "${dockerRegistry}/${dockerImage}"
