@@ -14,19 +14,6 @@ pipeline {
     }
     agent any
     stages {
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh """
-                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=ligne-rouge \
-                    -Dsonar.sources=. \
-                    -Dsonar.host.url=${SONAR_HOST_URL} \
-                    -Dsonar.login=${SONAR_TOKEN}
-                    """
-                }
-            }
-        }
         // stage('Build Web Docker image') {
         //     steps {
         //         script {
@@ -44,8 +31,20 @@ pipeline {
         stage('Build Docker images') {
             steps {
                 script {
-                    // sh 'docker-compose down -v'
                     sh 'docker-compose up --build'
+                }
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh """
+                    ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
+                    -Dsonar.projectKey=ligne-rouge \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=${SONAR_HOST_URL} \
+                    -Dsonar.login=${SONAR_TOKEN}
+                    """
                 }
             }
         }
