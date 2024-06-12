@@ -2,14 +2,14 @@ pipeline {
     environment {
         SONAR_SCANNER_HOME = '/opt/sonar-scanner-6.0.0.4432-linux'
         SONAR_HOST_URL = 'http://sonarqube:9000'
-        SONAR_TOKEN = 'squ_97f5bdbfdd12d0f0a62c829a66f7573590201d71'
+        SONAR_TOKEN = 'sqp_a23d224d500b9c7d48f0e6c3f4e446fa94a79b39'
         // webDockerImageName = "martinez42/ligne-rouge-web"
         // dbDockerImageName = "martinez42/ligne-rouge-db"
         // webDockerImage = ""
         // dbDockerImage = ""
         // registryCredential = 'docker-credentiel'
-        // KUBECONFIG = "/home/rootkit/.kube/config"
-        // TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
+        KUBECONFIG = "/home/rootkit/.kube/config"
+        TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
         // ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
     }
     agent any
@@ -23,10 +23,10 @@ pipeline {
         // }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SONARQUBE') {
+                withSonarQubeEnv('sonarqube') {
                     sh """
                     ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=ligne-rouge \
+                    -Dsonar.projectKey=file-rouge \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=${SONAR_HOST_URL} \
                     -Dsonar.login=${SONAR_TOKEN}
@@ -48,18 +48,18 @@ pipeline {
     //             }
     //         }
     //     }
-        // stage("Provision Kubernetes Cluster with Terraform") {
-        //     steps {
-        //         script {
-        //             sh """
-        //             cd ${TERRA_DIR}
-        //             terraform init
-        //             terraform plan
-        //             terraform apply --auto-approve
-        //             """
-        //         }
-        //     }
-        // }
+        stage("Provision Kubernetes Cluster with Terraform") {
+            steps {
+                script {
+                    sh """
+                    cd ${TERRA_DIR}
+                    terraform init
+                    terraform plan
+                    terraform apply --auto-approve
+                    """
+                }
+            }
+        }
         // stage('Install Python dependencies and Deploy with Ansible') {
         //     steps {
         //         script {
