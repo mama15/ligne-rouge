@@ -14,13 +14,13 @@ pipeline {
     }
     agent any
     stages {
-        stage('Build Docker images') {
-            steps {
-                script {
-                    sh 'docker-compose up --build -d'
-                }
-            }
-        }
+        // stage('Build Docker images') {
+        //     steps {
+        //         script {
+        //             sh 'docker-compose up --build -d'
+        //         }
+        //     }
+        // }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SONARQUBE') {
