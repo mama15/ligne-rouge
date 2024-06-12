@@ -2,7 +2,7 @@ pipeline {
     environment {
         SONAR_SCANNER_HOME = '/opt/sonar-scanner-6.0.0.4432-linux'
         SONAR_HOST_URL = 'http://sonarqube:9000'
-        SONAR_TOKEN = 'sqp_0aa4e3fd4d34eeea2d4a5232dcb972023f6b6258'
+        SONAR_TOKEN = 'squ_97f5bdbfdd12d0f0a62c829a66f7573590201d71'
         // webDockerImageName = "martinez42/ligne-rouge-web"
         // dbDockerImageName = "martinez42/ligne-rouge-db"
         // webDockerImage = ""
