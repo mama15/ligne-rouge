@@ -34,44 +34,32 @@ pipeline {
                 }
             }
         }
-       stage('Pushing Images to Docker Registry') {
+    //    stage('Pushing Images to Docker Registry') {
+    //         steps {
+    //             script {
+    //                 def dockerRegistry = "https://registry.hub.docker.com/"
+    //                 def dockerUsername = "martinez42"
+    //                 def dockerPassword = "Passer@4221"
+    //                 sh "docker login $dockerRegistry -u $dockerUsername -p $dockerPassword"
+    //                 sh "docker push ligne-rouge_master-web:latest"
+    //                 sh "docker push ligne-rouge_master-sonarqube:latest"
+    //                 sh "docker push ligne-rouge_master-postgres:latest"
+    //                 sh "docker push ligne-rouge_master-db:latest"
+    //             }
+    //         }
+    //     }
+        stage("Provision Kubernetes Cluster with Terraform") {
             steps {
                 script {
-                    def dockerRegistry = "https://registry.hub.docker.com/"
-                    def dockerUsername = "martinez42"
-                    def dockerPassword = "Passer@4221"
-                    sh "docker login $dockerRegistry -u $dockerUsername -p $dockerPassword"
-                    sh "docker push ligne-rouge_master-web:latest"
-                    sh "docker push ligne-rouge_master-sonarqube:latest"
-                    sh "docker push ligne-rouge_master-postgres:latest"
-                    sh "docker push ligne-rouge_master-db:latest"
+                    sh """
+                    cd ${TERRA_DIR}
+                    terraform init
+                    terraform plan
+                    terraform apply --auto-approve
+                    """
                 }
             }
         }
-        // stage('Pushing Images to Docker Registry') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
-        //                 docker.image('ligne-rouge_master-web').push('latest')
-        //                 docker.image('ligne-rouge_master-sonarqube').push('latest')
-        //                 docker.image('ligne-rouge_master-postgres').push('latest')
-        //                 docker.image('ligne-rouge_master-db').push('latest')
-        //             }
-        //         }
-        //     }
-        // }
-        // stage("Provision Kubernetes Cluster with Terraform") {
-        //     steps {
-        //         script {
-        //             sh """
-        //             cd ${TERRA_DIR}
-        //             terraform init
-        //             terraform plan
-        //             terraform apply --auto-approve
-        //             """
-        //         }
-        //     }
-        // }
         // stage('Install Python dependencies and Deploy with Ansible') {
         //     steps {
         //         script {
