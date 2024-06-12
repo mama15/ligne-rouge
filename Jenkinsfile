@@ -8,8 +8,8 @@ pipeline {
         // webDockerImage = ""
         // dbDockerImage = ""
         // registryCredential = 'docker-credentiel'
-        KUBECONFIG = "/home/rootkit/.kube/config"
-        TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
+        // KUBECONFIG = "/home/rootkit/.kube/config"
+        // TERRA_DIR  = "/home/rootkit/ligne-rouge/terraform"
         // ANSIBLE_DIR = "/home/rootkit/ligne-rouge/ansible"
     }
     agent any
@@ -48,18 +48,18 @@ pipeline {
     //             }
     //         }
     //     }
-        stage("Provision Kubernetes Cluster with Terraform") {
-            steps {
-                script {
-                    sh """
-                    cd ${TERRA_DIR}
-                    terraform init
-                    terraform plan
-                    terraform apply --auto-approve
-                    """
-                }
-            }
-        }
+        // stage("Provision Kubernetes Cluster with Terraform") {
+        //     steps {
+        //         script {
+        //             sh """
+        //             cd ${TERRA_DIR}
+        //             terraform init
+        //             terraform plan
+        //             terraform apply --auto-approve
+        //             """
+        //         }
+        //     }
+        // }
         // stage('Install Python dependencies and Deploy with Ansible') {
         //     steps {
         //         script {
